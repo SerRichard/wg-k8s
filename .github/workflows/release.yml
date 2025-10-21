@@ -1,0 +1,43 @@
+name: Build and Release
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+           
+      - name: Install Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+      
+      - name: Install Chart Releaser via Homebrew
+        run: |
+          brew tap helm/tap
+          brew install chart-releaser
+
+      - name: Release Dask Gateway chart
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          cr package wg-k8s
+          cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
+          cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push

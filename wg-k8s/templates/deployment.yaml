@@ -47,35 +47,25 @@ spec:
               value: "1000"
             - name: TZ
               value: "UTC"
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
+          volumeMounts:          
             - name: config
               mountPath: /etc/wireguard
             - name: modules
               mountPath: /lib/modules
-          {{- with .Values.volumeMounts }}
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          - name: proxy
-            image: vimagick/tinyproxy:latest
-            ports:
-            - containerPort: 8888
-            - containerPort: 6443
+        - name: proxy
+          image: vimagick/tinyproxy:latest
+          ports:
+          - containerPort: 8888
+          - containerPort: 6443
       volumes:
         - name: config
           configMap:
-            name: {{ .Values.configname }}
+            name: wireguard-config
         - name: modules
           hostPath:
             path: /lib/modules
-      {{- with .Values.volumes }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
