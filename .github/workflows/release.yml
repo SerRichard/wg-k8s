@@ -34,7 +34,7 @@ jobs:
           brew tap helm/tap
           brew install chart-releaser
 
-      - name: Release Dask Gateway chart
+      - name: Release chart
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
