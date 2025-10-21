@@ -13,19 +13,26 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+      
+      - name: add repos
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          helm repo add jupyterhub https://hub.jupyter.org/helm-chart/
+          helm repo add binderhub-service https://2i2c.org/binderhub-service
+      
+      - name: Install Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+      
+      - name: Install Chart Releaser via Homebrew
+        run: |
+          brew tap helm/tap
+          brew install chart-releaser
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.7.0
-        with:
-          packages_with_index: True
+      - name: Release JupyterHub chart
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          cr package charts/wg-k8s
+          cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
+          cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push
