@@ -3,6 +3,16 @@ entries:
   wg-k8s:
   - apiVersion: v2
     appVersion: 1.0.20250521
+    created: "2025-10-22T13:02:21.638915329Z"
+    description: A Helm chart for Kubernetes
+    digest: d3af1c36b160aafbf92a86f61041db79b96d253894dca0bb7da87c7a27444980
+    name: wg-k8s
+    type: application
+    urls:
+    - wg-k8s-2025.10.1-rc2.tgz
+    version: 2025.10.1-rc2
+  - apiVersion: v2
+    appVersion: 1.0.20250521
     created: "2025-10-21T13:04:12.451860374Z"
     description: A Helm chart for Kubernetes
     digest: 363640c5690b086cda5a485ef2a61f3149bc7e8e1ab7c7f068bee502d3d68dea
@@ -11,4 +21,4 @@ entries:
     urls:
     - wg-k8s-2025.10.1-rc1.tgz
     version: 2025.10.1-rc1
-generated: "2025-10-21T13:04:12.451865904Z"
+generated: "2025-10-22T13:02:21.638933694Z"
