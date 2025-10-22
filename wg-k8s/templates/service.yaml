@@ -15,6 +15,7 @@ spec:
   selector:
     {{- include "wg-k8s.selectorLabels" . | nindent 4 }}
 ---
+{{- if .Values.gateway.create -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -23,15 +24,11 @@ metadata:
     {{- include "wg-k8s.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.gateway.service.type }}
+  {{- with .Values.gateway.service.ports }}
   ports:
-  - name: gateway
-    port: 8888
-    targetPort: 8888
-    protocol: TCP
-  - name: dev-api
-    port: 6443
-    targetPort: 6443
-    protocol: TCP
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
   selector:
     {{- include "wg-k8s.selectorLabels" . | nindent 4 }}
 ---
+{{- end }}
