@@ -92,5 +92,14 @@ tolerations: []
 affinity: {}
 
 gateway:
+  create: true
+
+  image:
+    repository: vimagick/tinyproxy
+    pullPolicy: IfNotPresent
+    tag: latest
+
   service:
     type: ClusterIP
+
+    ports: []

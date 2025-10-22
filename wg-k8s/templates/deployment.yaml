@@ -54,15 +54,21 @@ spec:
               mountPath: /etc/wireguard
             - name: modules
               mountPath: /lib/modules
-        - name: proxy
-          image: vimagick/tinyproxy:latest
+        {{- if .Values.gateway.create }}
+        - name: gateway
+          image: "{{ .Values.gateway.image.repository }}:{{ .Values.gateway.image.tag}}"
+          imagePullPolicy: {{ .Values.gateway.image.pullPolicy }}
           ports:
-          - containerPort: 8888
-          - containerPort: 6443
+            {{- range .Values.gateway.service.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort | default .port }}
+              protocol: {{ .protocol | default "TCP" }}
+            {{- end }}
+        {{- end}}
       volumes:
         - name: config
           configMap:
-            name: wireguard-config
+            name: {{ .Values.configname }}
         - name: modules
           hostPath:
             path: /lib/modules
