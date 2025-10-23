@@ -43,6 +43,18 @@ jobs:
           cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
           cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push
 
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: update-gh-pages-${{ github.run_id }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Merge main into new update branch
+        run: |
+          git fetch origin main
+          git merge origin/main --no-edit || echo "Nothing to merge"
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
