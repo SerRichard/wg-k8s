@@ -18,11 +18,6 @@ helm upgrade --install wg wg-k8s/wg-k8s -f values.yaml --version $version --name
 ```
 
 ```
-# For local
-helm upgrade --install wgk8s ./wg-k8s -f .values.yaml --namespace wireguard
-```
-
-```
 helm uninstall wgk8s
 ```
 

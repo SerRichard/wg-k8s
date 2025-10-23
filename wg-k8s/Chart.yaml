@@ -4,6 +4,6 @@ description: A helm chart for installing wireguard.
 
 type: application
 
-version: 2025.10.1-rc5
+version: 2025.10.1-rc3
 
 appVersion: "1.0.20250521"
