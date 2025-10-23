@@ -42,17 +42,3 @@ jobs:
           cr package wg-k8s
           cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
           cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push
-
-      - uses: actions/checkout@v5
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Create Pull Request from main to gh-pages
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "Merge main into gh-pages"
-          title: "Sync gh-pages with main"
-          body: "This PR updates gh-pages from main."
-          base: gh-pages
