@@ -46,11 +46,11 @@ jobs:
       - name: Checkout gh-pages
         uses: actions/checkout@v3
         with:
-          ref: gh-pages
+          ref: update-gh-pages-${{ github.run_id }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Merge main into gh-pages
+      - name: Merge main into new update branch
         run: |
           git fetch origin main
           git merge origin/main --no-edit || echo "Nothing to merge"
