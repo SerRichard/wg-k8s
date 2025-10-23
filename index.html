@@ -2,8 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Helm Chart Versions</title>
+  <title>wg-k8s</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+      background: #f7f7f7;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <style>
@@ -16,6 +28,7 @@
   </style>
 </head>
 <body>
+  <div class="container markdown-body">
   <h1>Helm Chart</h1>
 
   <div id="readme"></div>
@@ -65,5 +78,6 @@
     loadReadme();
     loadChartVersions();
   </script>
+  </div>
 </body>
 </html>
