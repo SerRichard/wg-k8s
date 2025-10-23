@@ -3,6 +3,10 @@ A minimal helm chart for deploying wireguard in Kubernetes.
 
 ## Installation
 
+#### Pre-requisites
+
+Refer to the [Key Generation](https://www.wireguard.com/quickstart/#key-generation) in the WireGuard QuickStart. After generating the private key, you will need to populate a secret named `wireguard-secret` in the namespace you intend to install the chart. The key name in the secret needs to be named `privatekey`. The helm chart will populate the wireguard configuration with this value.
+
 ```
 helm repo add wg-k8s https://serrichard.github.io/wg-k8s
 helm repo update
