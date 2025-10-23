@@ -46,7 +46,7 @@ jobs:
       - name: Create Pull Request from main to gh-pages
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           commit-message: "Merge main into gh-pages"
           title: "Sync gh-pages with main"
           body: "This PR updates gh-pages from main."
