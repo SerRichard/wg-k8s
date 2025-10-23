@@ -42,3 +42,14 @@ jobs:
           cr package wg-k8s
           cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
           cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update docs from release ${{ github.sha }}"
+          title: "Update gh-pages after release"
+          body: |
+            This PR updates gh-pages after the release workflow.
+          base: gh-pages
+          branch: update-gh-pages-${{ github.run_id }}
