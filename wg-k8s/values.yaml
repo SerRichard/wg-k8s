@@ -1,14 +1,37 @@
 # Default values for wg-k8s.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-replicaCount: 1
-
-configname: wireguard-config
-
 image:
   repository: linuxserver/wireguard
   pullPolicy: IfNotPresent
   tag: 1.0.20250521
+
+config:
+  # The following values are available for defining an interface.
+  interface:
+    address: 10.3.0.1/24
+    dns: 10.152.183.10
+
+  # The following values can be provided for peers. Endpoint is optional.
+  peers: []
+    # - publicKey: Rnkhgx1sSL2/mkjQ1e+fTKmSVNpQDqOKLdc0+fb+omc=
+    #   endpoint: 191.171.117.174:4500
+    #   allowedIPs: 10.1.0.0/16, 10.152.183.0/24, 10.3.0.0/24
+
+gateway:
+  create: true
+
+  image:
+    repository: vimagick/tinyproxy
+    pullPolicy: IfNotPresent
+    tag: latest
+
+  service:
+    type: ClusterIP
+
+    ports: []
+
+replicaCount: 1
 
 imagePullSecrets: []
 nameOverride: ""
@@ -58,13 +81,6 @@ readinessProbe:
   periodSeconds: 10
   failureThreshold: 3
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-
-
 # Additional volumes on the output Deployment definition.
 volumes: []
 
@@ -76,16 +92,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-gateway:
-  create: true
-
-  image:
-    repository: vimagick/tinyproxy
-    pullPolicy: IfNotPresent
-    tag: latest
-
-  service:
-    type: ClusterIP
-
-    ports: []
