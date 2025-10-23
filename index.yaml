@@ -43,6 +43,16 @@ entries:
     version: 2025.10.1-rc4
   - apiVersion: v2
     appVersion: 1.0.20250521
+    created: "2025-10-23T13:11:19.604521178Z"
+    description: A helm chart for installing wireguard.
+    digest: 4a8ca54861f21bda7178bf3562b40ef5c080a71ba6e21d5e1b991bd3698e9834
+    name: wg-k8s
+    type: application
+    urls:
+    - wg-k8s-2025.10.1-rc4.tgz
+    version: 2025.10.1-rc4
+  - apiVersion: v2
+    appVersion: 1.0.20250521
     created: "2025-10-23T12:41:51.382516291Z"
     description: A helm chart for installing wireguard.
     digest: 9c10d8dd9b12999203edc71e38d565ec50f070a670a41e7b0c617e4b6e3a9542
@@ -71,4 +81,4 @@ entries:
     urls:
     - wg-k8s-2025.10.1-rc1.tgz
     version: 2025.10.1-rc1
-generated: "2025-10-23T13:08:38.730148637Z"
+generated: "2025-10-23T13:11:19.604600075Z"
