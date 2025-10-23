@@ -43,6 +43,11 @@ jobs:
           cr upload --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --push --skip-existing 
           cr index --owner serrichard --token $CR_TOKEN --git-repo wg-k8s --packages-with-index --index-path . --push
 
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
       - name: Create Pull Request from main to gh-pages
         uses: peter-evans/create-pull-request@v5
         with:
