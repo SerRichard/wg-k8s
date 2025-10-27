@@ -11,12 +11,14 @@ config:
   interface:
     address: 10.3.0.1/24
     dns: 10.152.183.10
+    listenport: 4500
 
   # The following values can be provided for peers. Endpoint is optional.
   peers: []
     # - publicKey: Rnkhgx1sSL2/mkjQ1e+fTKmSVNpQDqOKLdc0+fb+omc=
     #   endpoint: 191.171.117.174:4500
     #   allowedIPs: 10.1.0.0/16, 10.152.183.0/24, 10.3.0.0/24
+    #   persistentKeepAlive: 25
 
 gateway:
   create: true
