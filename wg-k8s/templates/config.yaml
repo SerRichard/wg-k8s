@@ -26,8 +26,8 @@ data:
     Endpoint = {{ .endpoint }}
     {{- end }}
     AllowedIPs = {{ .allowedIPs }}
-    {{- end }}
     {{- if .persistentKeepAlive }}
     PersistentKeepalive = {{ .persistentKeepAlive }}
+    {{- end }}
     {{- end }}
 ---
