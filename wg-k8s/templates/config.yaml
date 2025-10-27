@@ -7,14 +7,16 @@ data:
   wg0.conf: |
     [Interface]
     PrivateKey = {{ (lookup "v1" "Secret" .Release.Namespace "wireguard-secret").data.privatekey }}
-    Address = {{ .Values.address }}
-    DNS = {{ .Values.dns }}
+    Address = {{ .Values.config.interface.address }}
+    {{- if .Values.config.interface.dns }}
+    DNS = {{ .Values.config.interface.dns }}
+    {{- end }}
     ListenPort = 4500
     
     PostUp   = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; sysctl -w net.ipv4.ip_forward=1; iptables -S FORWARD | grep wg0
     PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; sysctl -w net.ipv4.ip_forward=1; iptables -S FORWARD | grep wg0
 
-    {{- range .Values.clients }}
+    {{- range .Values.config.peers }}
 
     [Peer]
     PublicKey = {{ .publicKey }}
