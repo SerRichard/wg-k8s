@@ -38,6 +38,14 @@ spec:
           ports:
             - containerPort: {{ .Values.service.port }}
               protocol: UDP
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              #!/bin/sh
+              export PRIVATE_KEY=$(cat /tmp/privatekey/privatekey)
+              mkdir -p /config/wg_confs
+              sed "s|\${PRIVATE_KEY}|${PRIVATE_KEY}|g" /tmp/wireguard/wg0.conf.template > /etc/wireguard/wg0.conf
+              exec /init
           env:
             - name: PUID
               value: "1000"
@@ -49,7 +57,9 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:          
             - name: config
-              mountPath: /etc/wireguard
+              mountPath: /tmp/wireguard
+            - name: privatekey
+              mountPath: /tmp/privatekey
             - name: modules
               mountPath: /lib/modules
         {{- if .Values.gateway.create }}
@@ -67,6 +77,9 @@ spec:
         - name: config
           configMap:
             name: wireguard-config
+        - name: privatekey
+          secret: 
+            secretName: wireguard-secret
         - name: modules
           hostPath:
             path: /lib/modules

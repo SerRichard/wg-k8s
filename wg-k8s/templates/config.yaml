@@ -4,9 +4,9 @@ kind: ConfigMap
 metadata:
   name: wireguard-config
 data:
-  wg0.conf: |
+  wg0.conf.template: |
     [Interface]
-    PrivateKey = {{ (lookup "v1" "Secret" .Release.Namespace "wireguard-secret").data.privatekey }}
+    PrivateKey = ${PRIVATE_KEY}
     Address = {{ .Values.config.interface.address }}
     {{- if .Values.config.interface.dns }}
     DNS = {{ .Values.config.interface.dns }}
