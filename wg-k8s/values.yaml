@@ -59,6 +59,7 @@ securityContext:
 
 service:
   type: ClusterIP
+  clusterIP: ""
   port: 4500
 
 resources: {}
