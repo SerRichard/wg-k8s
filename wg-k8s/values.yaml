@@ -33,6 +33,7 @@ gateway:
 
   service:
     type: ClusterIP
+    clusterIP: ""
 
     ports: []
 
