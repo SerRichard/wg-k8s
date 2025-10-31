@@ -13,6 +13,9 @@ config:
     dns: 10.152.183.10
     listenport: 4500
 
+  postUp: iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; iptables -S FORWARD
+  postDown: iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; iptables -S FORWARD
+
   # The following values can be provided for peers. Endpoint is optional.
   peers: []
     # - publicKey: Rnkhgx1sSL2/mkjQ1e+fTKmSVNpQDqOKLdc0+fb+omc=
