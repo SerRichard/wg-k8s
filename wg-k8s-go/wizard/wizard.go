@@ -12,7 +12,7 @@ func (wizard Wizard) ValidateArgs(args []string) (bool, error) {
 
 	k8sConfig, version, namespace, valuesFile := args[0], args[1], args[2], args[3]
 
-	fmt.Printf("Running Wizard with: %v %v %v %v\n", k8sConfig, version, namespace, valuesFile)
+	fmt.Printf("Running Wizard with: %v\n %v\n %v\n %v\n", k8sConfig, version, namespace, valuesFile)
 
 	return true, nil
 }
