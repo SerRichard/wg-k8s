@@ -17,7 +17,6 @@ func (wizard Wizard) ValidateArgs(args []string) (bool, error) {
 	return true, nil
 }
 
-
 func (wizard Wizard) InitHelm() {
 	
 }
