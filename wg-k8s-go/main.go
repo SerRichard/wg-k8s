@@ -2,7 +2,8 @@ package main
 
 import (
 	"os"
-	
+
+	"github.com/SerRichard/wg-k8s/wg-k8s-go/wizard"
 	"github.com/spf13/cobra"
 )
 
@@ -17,8 +18,7 @@ use the wizard setup remote locations and output the config update for your othe
 			DisableDefaultCmd: true,
 		},
 	}
-	// command.AddCommand(server.ServerCommand())
-	// command.AddCommand(daemon.DaemonCommand())
+	command.AddCommand(wizard.WizardCommand())
 
 	command.SetHelpCommand(&cobra.Command{
 		Hidden: true,
